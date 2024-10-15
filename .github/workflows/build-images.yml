@@ -33,7 +33,7 @@ jobs:
         id: set-variables
         run: |
           echo "IMAGE=${{ matrix.apps }}" >> "$GITHUB_OUTPUT"
-          echo "VERSION=$(echo ${GITHUB_REF#refs/tags/})" >> "$GITHUB_OUTPUT"
+          echo "VERSION=${{github.run_number}}" >> "$GITHUB_OUTPUT"
           echo "CREATED=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "$GITHUB_OUTPUT"
       
       - name: Environment variables output
