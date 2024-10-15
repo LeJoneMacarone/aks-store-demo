@@ -139,7 +139,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: order-service
-        image: ghcr.io/azure-samples/aks-store-demo/order-service:latest
+        image: pitacd/order-service:latest
         ports:
         - containerPort: 3000
         env:
@@ -226,7 +226,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: makeline-service
-        image: ghcr.io/azure-samples/aks-store-demo/makeline-service:latest
+        image: pitacd/makeline-service:latest
         ports:
         - containerPort: 3001
         env:
@@ -303,7 +303,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: product-service
-        image: ghcr.io/azure-samples/aks-store-demo/product-service:latest
+        image: pitacd/product-service:latest
         ports:
         - containerPort: 3002
         env: 
@@ -362,7 +362,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: store-front
-        image: ghcr.io/azure-samples/aks-store-demo/store-front:latest
+        image: pitacd/store-front:latest
         ports:
         - containerPort: 8080
           name: store-front
@@ -430,7 +430,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: store-admin
-        image: ghcr.io/azure-samples/aks-store-demo/store-admin:latest
+        image: pitacd/store-admin:latest
         ports:
         - containerPort: 8081
           name: store-admin
@@ -498,7 +498,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: virtual-customer
-        image: ghcr.io/azure-samples/aks-store-demo/virtual-customer:latest
+        image: pitacd/virtual-customer:latest
         env:
         - name: ORDER_SERVICE_URL
           value: http://order-service:3000/
@@ -530,7 +530,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: virtual-worker
-        image: ghcr.io/azure-samples/aks-store-demo/virtual-worker:latest
+        image: pitacd/virtual-worker:latest
         env:
         - name: MAKELINE_SERVICE_URL
           value: http://makeline-service:3001
