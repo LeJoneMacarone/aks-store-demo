@@ -34,7 +34,6 @@ jobs:
         run: |
           echo "IMAGE=${{ matrix.apps }}" >> "$GITHUB_OUTPUT"
           echo "VERSION=${{github.run_number}}" >> "$GITHUB_OUTPUT"
-          echo "CREATED=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "$GITHUB_OUTPUT"
       
       - name: Environment variables output
         id: test-variables
@@ -58,4 +57,6 @@ jobs:
           context: src/${{ matrix.apps }}
           file: src/${{ matrix.apps }}/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.set-variables.outputs.IMAGE }}:${{ steps.set-variables.outputs.VERSION }}
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.set-variables.outputs.IMAGE }}:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.set-variables.outputs.IMAGE }}:${{ steps.set-variables.outputs.VERSION }}
