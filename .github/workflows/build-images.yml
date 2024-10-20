@@ -4,7 +4,6 @@ on:
   push:
     branch:
       - "main"
-      - "release"
 
 permissions:
   contents: read
