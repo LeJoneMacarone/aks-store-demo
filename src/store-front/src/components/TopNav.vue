@@ -10,7 +10,7 @@
     </button>
     <ul class="nav-links" :class="{ 'nav-links--open': isNavOpen }">
       <li><router-link to="/" @click="closeNav">Products</router-link></li>
-      <li><router-link to="/cart" @click="closeNav">Cart ({{ cartItemCount }})</router-link></li>
+      <li><router-link to="/cart" @click="closeNav">Shopping Cart ({{ cartItemCount }})</router-link></li>
     </ul>
   </nav>
 </template>
@@ -40,7 +40,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* background-color: #333; */
+  background-color: #333;
   color: #fff;
   padding-top: 0.5rem;
   padding-left: 1rem;
