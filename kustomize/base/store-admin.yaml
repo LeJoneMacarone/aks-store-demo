@@ -16,7 +16,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: store-admin
-        image: pitacd/store-admin:latest
+        image: pitacd/store-admin:17
         ports:
         - containerPort: 8081
           name: store-admin

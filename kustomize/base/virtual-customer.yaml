@@ -16,7 +16,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: virtual-customer
-        image: pitacd/virtual-customer:latest
+        image: pitacd/virtual-customer:17
         env:
         - name: ORDER_SERVICE_URL
           value: http://order-service:3000/
