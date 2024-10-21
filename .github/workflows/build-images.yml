@@ -68,7 +68,7 @@ jobs:
         name: Changing the deployments of git repo
         with:
           repository: 'LeJoneMacarone/aks-store-demo'
-          token: ${{ secrets.GIT_PASSWORD }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Modify the image
         run: |
           git config user.email ${{ secrets.USER_EMAIL }}
