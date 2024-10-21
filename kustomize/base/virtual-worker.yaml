@@ -16,7 +16,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: virtual-worker
-        image: pitacd/virtual-worker:17
+        image: pitacd/virtual-worker:18
         env:
         - name: MAKELINE_SERVICE_URL
           value: http://makeline-service:3001
