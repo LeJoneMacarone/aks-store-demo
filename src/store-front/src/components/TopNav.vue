@@ -10,7 +10,7 @@
     </button>
     <ul class="nav-links" :class="{ 'nav-links--open': isNavOpen }">
       <li><router-link to="/" @click="closeNav">Products</router-link></li>
-      <li><router-link to="/cart" @click="closeNav">Shopping Cart ({{ cartItemCount }})</router-link></li>
+      <li><router-link to="/cart" @click="closeNav">Cart ({{ cartItemCount }})</router-link></li>
     </ul>
   </nav>
 </template>
