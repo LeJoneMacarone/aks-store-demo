@@ -16,7 +16,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: store-front
-        image: pitacd/store-front:18
+        image: pitacd/store-front:19
         ports:
         - containerPort: 8080
           name: store-front

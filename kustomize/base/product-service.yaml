@@ -16,7 +16,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: product-service
-        image: pitacd/product-service:18
+        image: pitacd/product-service:19
         ports:
         - containerPort: 3002
         env: 
