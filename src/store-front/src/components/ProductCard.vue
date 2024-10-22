@@ -4,7 +4,7 @@
     <router-link :to="`/product/${product.id}`">
       <h2>{{ product.name }}</h2>
     </router-link>
-      <p>{{ product.description }}</p>
+      <p>Description: {{ product.description }}</p>
       <div class="product-details">
         <div class="product-price">
           <p class="price">{{ product.price }}</p>
