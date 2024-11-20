@@ -51,9 +51,8 @@ module.exports = async function (fastify, opts) {
       parsedConteudo = JSON.parse(validJson);
     } catch (error) {
       console.error('Failed to parse conteudo:', error);
-      callback({
-        code: grpc.status.INVALID_ARGUMENT,
-        message: 'Invalid JSON format in conteudo',
+      callback(null,{
+        resposta: 'Invalid JSON format in conteudo',
       });
       return;
     }
