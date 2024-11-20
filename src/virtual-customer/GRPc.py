@@ -12,7 +12,7 @@ def main():
     # Configurações de ambiente
     grpc_server_address = "order-service:50051"  # This is the gRPC server address (not HTTP)
 
-    orders_per_hour = int(os.getenv("ORDERS_PER_HOUR", "2"))
+    orders_per_hour = int(os.getenv("ORDERS_PER_HOUR", "300"))
 
     if orders_per_hour == 0:
         print("[ERROR] ORDERS_PER_HOUR não pode ser zero.")
@@ -33,7 +33,7 @@ def main():
 
         # Geração de dados do pedido
         customer_id = str(random.randint(10, 100))
-        number_of_items = random.randint(4, 10)
+        number_of_items = random.randint(1, 5)
 
         items = [
             {
