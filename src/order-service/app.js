@@ -41,12 +41,32 @@ module.exports = async function (fastify, opts) {
   function enviarMensagem(call, callback) {
     const mensagem = call.request;
     console.log('Received message:', mensagem);
-
-    // Simulate message processing and respond
+  
+    let parsedConteudo;
+    try {
+      // Replace single quotes with double quotes
+      const validJson = mensagem.conteudo.replace(/'/g, '"');
+      
+      // Parse the corrected JSON string
+      parsedConteudo = JSON.parse(validJson);
+    } catch (error) {
+      console.error('Failed to parse conteudo:', error);
+      callback({
+        code: grpc.status.INVALID_ARGUMENT,
+        message: 'Invalid JSON format in conteudo',
+      });
+      return;
+    }
+  
+    // Pass the parsed content to sendMessage
+    fastify.sendMessage(Buffer.from(JSON.stringify(parsedConteudo)));
+  
+    // Respond to the gRPC client
     callback(null, {
       resposta: `Mensagem recebida com sucesso: ${mensagem.conteudo}`,
     });
   }
+  
 
   // Create gRPC server
   const grpcServer = new grpc.Server();
