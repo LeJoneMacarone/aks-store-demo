@@ -16,15 +16,14 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: virtual-customer
-        image: pitacd/virtual-customer:latest
-        # image: grupo5sd/virtual_client:latest
+        image: grupo5sd/virtual_client:latest
         env:
         - name: ORDER_SERVICE_URL
           value: http://order-service:3000/
         resources:
           requests:
             cpu: 1m
-            memory: 50Mi
+            memory: 20Mi
           limits:
             cpu: 1m
-            memory: 100Mi
+            memory: 50Mi
