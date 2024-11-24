@@ -21,7 +21,6 @@ jobs:
           product-service,
           store-admin,
           store-front,
-          virtual-customer,
           virtual-worker
         ]
 
@@ -41,37 +40,6 @@ jobs:
           context: src/${{ matrix.apps }}
           file: src/${{ matrix.apps }}/Dockerfile
           push: true
-          tags: pitacd/${{ matrix.apps }}:${{ github.run_number }}
-
-  modify-git:
-    needs: publish-container-image
-    
-    runs-on: ubuntu-latest
-        
-    permissions:
-      contents: write
-
-    steps:
-      - uses: actions/checkout@v3
-        name: Changing the deployments of git repo
-        with:
-          repository: 'LeJoneMacarone/aks-store-demo'
-          token: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Modify the images in manifests
-        run: |
-          git config user.email ${{ secrets.USER_EMAIL }}
-          git config user.name LeJoneMacarone
-          for app in makeline-service order-service product-service store-admin store-front virtual-customer virtual-worker
-          do
-            echo "Modifying image for $app..."
-            
-            # Modify the image tag in the YAML file for each app
-            sed -i "s+image: pitacd/$app:.*+image: pitacd/$app:${{ github.run_number }}+g" kustomize/base/$app.yaml
-            
-            # Display the modified file for debugging purposes
-            cat kustomize/base/$app.yaml
-          done
-          git add .
-          git commit -m 'Done  by Github Actions   Job change manifest: ${{ github.run_number }}'
-          git push origin main
+          tags: |
+            pitacd/${{ matrix.apps }}:latest
+            pitacd/${{ matrix.apps }}:${{ github.run_number }}
