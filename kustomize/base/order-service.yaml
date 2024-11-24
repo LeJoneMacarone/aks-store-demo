@@ -16,7 +16,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: order-service
-        image: pitacd/order-service:19
+        image: pitacd/order-service:latest
         ports:
         - containerPort: 3000
         - containerPort: 50051
