@@ -16,7 +16,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: virtual-customer
-        image: pitacd/virtual_customer:latest
+        image: pitacd/virtual-customer:latest
         # image: grupo5sd/virtual_client:latest
         env:
         - name: ORDER_SERVICE_URL
