@@ -16,12 +16,12 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: virtual-customer
-        image: pitacd/virtual-customer:19
+        image: grupo5sd/virtual_client:latest
         env:
         - name: ORDER_SERVICE_URL
           value: http://order-service:3000/
-        - name: ORDERS_PER_HOUR
-          value: "100"
+        - name: GRPC_SERVER_ADDRESS 
+          value: order-service:50051
         resources:
           requests:
             cpu: 1m
