@@ -40,7 +40,7 @@ module.exports = async function (fastify, opts) {
   // Implement the EnviarMensagem method
   function enviarMensagem(call, callback) {
     const mensagem = call.request;
-    console.log('Received message:', mensagem);
+    console.log('Received from gRPC:', mensagem);
   
     let parsedConteudo;
     try {
