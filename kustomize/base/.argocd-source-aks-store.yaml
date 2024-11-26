@@ -1,9 +1,9 @@
 kustomize:
   images:
-  - pitacd/makeline-service:43
+  - pitacd/makeline-service:44
   - pitacd/order-service:37
   - pitacd/product-service:latest
   - pitacd/store-admin:latest
   - pitacd/store-front:latest
   - grupo5sd/virtual_client:latest
-  - pitacd/virtual-worker:29
+  - pitacd/virtual-worker:latest
