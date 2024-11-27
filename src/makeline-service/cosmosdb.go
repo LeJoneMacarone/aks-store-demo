@@ -178,7 +178,7 @@ func (r *CosmosDBOrderRepo) InsertOrders(orders []Order) error {
 		counter++
 	}
 
-	log.Printf("Inserted %v documents into database\n", counter)
+	log.Printf("Insert %v documents into database\n", counter)
 
 	return nil
 }
