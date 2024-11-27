@@ -1,6 +1,6 @@
 kustomize:
   images:
-  - pitacd/makeline-service:45
+  - pitacd/makeline-service:59
   - pitacd/order-service:45
   - pitacd/product-service:44
   - pitacd/store-admin:45
