@@ -17,9 +17,6 @@ spec:
       containers:
       - name: virtual-customer
         image: grupo5sd/virtual_client:latest
-        env:
-        - name: ORDER_SERVICE_URL
-          value: http://order-service:3000/
         resources:
           requests:
             cpu: 1m

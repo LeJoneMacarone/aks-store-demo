@@ -40,7 +40,7 @@ module.exports = async function (fastify, opts) {
   // Implement the EnviarMensagem method
   function enviarMensagem(call, callback) {
     const mensagem = call.request;
-    console.log('Received from gRPC:', mensagem);
+    console.log('Received from gRPC:\n', mensagem);
   
     let parsedConteudo;
     try {
@@ -66,7 +66,6 @@ module.exports = async function (fastify, opts) {
     });
   }
   
-
   // Create gRPC server
   const grpcServer = new grpc.Server();
   grpcServer.addService(mensagemProto.service, { EnviarMensagem: enviarMensagem });
