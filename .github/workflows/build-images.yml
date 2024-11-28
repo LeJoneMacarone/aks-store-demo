@@ -47,7 +47,7 @@ jobs:
     if: ${{ needs.determine-changes.outputs.changed-folders != '[]' }}
     strategy:
       matrix:
-        folder: ${{ needs.determine-changes.outputs.changed-folders }}
+        folder: ${{ fromJson(needs.determine-changes.outputs.changed-folders) }}
     steps:
       - name: Debug Changed Folders
         run: |
