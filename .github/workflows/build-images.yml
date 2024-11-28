@@ -38,10 +38,11 @@ jobs:
   build-and-push:
     needs: determine-changes
     runs-on: ubuntu-latest
-    if: ${{ fromJson(needs.determine-changes.outputs.changed-folders) != '' }}
+    if: ${{ fromJson(needs.determine-changes.outputs.changed-folders) != null && fromJson(needs.determine-changes.outputs.changed-folders) != '[]' }}
     strategy:
       matrix:
         folder: ${{ fromJson(needs.determine-changes.outputs.changed-folders) }}
+      fail-fast: false
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
