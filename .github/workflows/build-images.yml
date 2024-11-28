@@ -33,13 +33,13 @@ jobs:
         id: extract-folders
         run: |
           CHANGED_FOLDERS=$(echo '${{ steps.changes.outputs.all_changed_files }}' | grep -o 'src/[^/]*/' | uniq | sed 's|src/||; s|/||')
-          
+
           if [ -z "$CHANGED_FOLDERS" ]; then
             echo "No changes detected."
             echo "changed-folders=[]" >> $GITHUB_OUTPUT
           else
-            # Convert the result to a JSON array format using jq
-            CHANGED_FOLDERS_ARRAY=$(echo $CHANGED_FOLDERS | jq -R . | jq -s .)
+            # Format the array properly, removing spaces and wrapping with quotes
+            CHANGED_FOLDERS_ARRAY=$(echo $CHANGED_FOLDERS | tr ' ' '\n' | jq -R . | jq -s .)
             echo "changed-folders=$CHANGED_FOLDERS_ARRAY" >> $GITHUB_OUTPUT
           fi
 
