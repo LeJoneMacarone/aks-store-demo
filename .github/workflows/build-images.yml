@@ -38,7 +38,9 @@ jobs:
             echo "No changes detected."
             echo "changed-folders=[]" >> $GITHUB_OUTPUT
           else
-            echo "changed-folders=[$CHANGED_FOLDERS]" >> $GITHUB_OUTPUT
+            # Format as a JSON array, wrapping in double quotes and adding commas if necessary
+            JSON_ARRAY="[$(echo $CHANGED_FOLDERS | sed 's/ /","/g')]"
+            echo "changed-folders=$JSON_ARRAY" >> $GITHUB_OUTPUT
           fi
 
   build-and-push:
