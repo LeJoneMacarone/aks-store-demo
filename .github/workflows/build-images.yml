@@ -33,7 +33,7 @@ jobs:
         id: extract-folders
         run: |
           echo "Changed folders: $(echo '${{ steps.changes.outputs.all_changed_files }}' | grep -o 'src/[^/]*/' | uniq | sed 's|src/||; s|/||')"
-          echo "::set-output name=changed-folders::$(echo '${{ steps.changes.outputs.all_changed_files }}' | grep -o 'src/[^/]*/' | uniq | sed 's|src/||; s|/||')"
+          echo "changed-folders=$(echo '${{ steps.changes.outputs.all_changed_files }}' | grep -o 'src/[^/]*/' | uniq | sed 's|src/||; s|/||')" >> $GITHUB_OUTPUT
 
   build-and-push:
     needs: determine-changes
