@@ -39,7 +39,7 @@ jobs:
             echo "changed-folders=[]" >> $GITHUB_OUTPUT
           else
             echo "changed-folders=[$CHANGED_FOLDERS]" >> $GITHUB_OUTPUT
-        
+          fi
 
   build-and-push:
     needs: determine-changes
@@ -47,7 +47,7 @@ jobs:
     if: ${{ needs.determine-changes.outputs.changed-folders != '[]' }}
     strategy:
       matrix:
-        folder: ${{ needs.determine-changes.outputs.changed-folders }}}
+        folder: ${{ fromJson(needs.determine-changes.outputs.changed-folders) }}}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
