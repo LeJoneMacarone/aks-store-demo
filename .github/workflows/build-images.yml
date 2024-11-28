@@ -32,17 +32,22 @@ jobs:
       - name: Extract Changed Folders
         id: extract-folders
         run: |
-          echo "Changed folders: $(echo '${{ steps.changes.outputs.all_changed_files }}' | grep -o 'src/[^/]*/' | uniq | sed 's|src/||; s|/||')"
-          echo "changed-folders=$(echo '${{ steps.changes.outputs.all_changed_files }}' | grep -o 'src/[^/]*/' | uniq | sed 's|src/||; s|/||')" >> $GITHUB_OUTPUT
+          CHANGED_FOLDERS=$(echo '${{ steps.changes.outputs.all_changed_files }}' | grep -o 'src/[^/]*/' | uniq | sed 's|src/||; s|/||')
+          echo "Changed folders: $CHANGED_FOLDERS"
+          if [ -z "$CHANGED_FOLDERS" ]; then
+            echo "No changes detected."
+            echo "changed-folders=[]" >> $GITHUB_OUTPUT
+          else
+            echo "changed-folders=[$CHANGED_FOLDERS]" >> $GITHUB_OUTPUT
+        
 
   build-and-push:
     needs: determine-changes
     runs-on: ubuntu-latest
-    if: ${{ fromJson(needs.determine-changes.outputs.changed-folders) != null && fromJson(needs.determine-changes.outputs.changed-folders) != '[]' }}
+    if: ${{ needs.determine-changes.outputs.changed-folders != '[]' }}
     strategy:
       matrix:
-        folder: ${{ fromJson(needs.determine-changes.outputs.changed-folders) }}
-      fail-fast: false
+        folder: ${{ needs.determine-changes.outputs.changed-folders }}}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
