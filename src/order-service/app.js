@@ -62,7 +62,7 @@ module.exports = async function (fastify, opts) {
   
     // Respond to the gRPC client
     callback(null, {
-      resposta: `[RECEIVED] Message: ${mensagem.conteudo}`,
+      resposta: `[GET] Message received with sucess: ${mensagem.conteudo}`,
     });
   }
   
