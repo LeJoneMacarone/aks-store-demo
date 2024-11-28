@@ -5,5 +5,5 @@ kustomize:
   - pitacd/product-service:44
   - pitacd/store-admin:45
   - pitacd/store-front:45
-  - grupo5sd/virtual_client:app-155
+  - grupo5sd/virtual_client:app-157
   - pitacd/virtual-worker:45
