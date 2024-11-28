@@ -38,6 +38,7 @@ jobs:
   build-and-push:
     needs: determine-changes
     runs-on: ubuntu-latest
+    if: ${{ fromJson(needs.determine-changes.outputs.changed-folders) != '' }}
     strategy:
       matrix:
         folder: ${{ fromJson(needs.determine-changes.outputs.changed-folders) }}
