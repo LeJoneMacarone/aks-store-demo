@@ -7,3 +7,4 @@ kustomize:
   - pitacd/store-front:45
   - grupo5sd/virtual_client:app-171
   - pitacd/virtual-worker:45
+  - grupo5sd/virtual_client_old:app-171
