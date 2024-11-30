@@ -33,6 +33,12 @@ module.exports = async function (fastify, opts) {
 
   // ------ End Prometheus Metrics Definition  ------
 
+  // Expose the metrics endpoint
+  fastify.get('/metrics', async function (request, reply) {
+    reply.header('Content-Type', register.contentType);
+    reply.send(await register.metrics());
+  });
+
   fastify.post('/', async function (request, reply) {
     const msg = request.body
     console.log(`[GET] Received from HTTP: ${msg}`);
