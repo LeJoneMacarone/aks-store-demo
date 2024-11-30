@@ -3,10 +3,10 @@ const client = require('prom-client');
 
 module.exports = async function (fastify, opts) {
   
+  const { register } = opts; // Use the shared registry
   //  ------ Prometheus Custom Metrics  ------
 
   // Register Prometheus metrics
-  const register = new client.Registry();
 
   // Create Prometheus metrics
   const httpRequestCounter = new client.Counter({

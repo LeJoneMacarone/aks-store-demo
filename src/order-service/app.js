@@ -36,29 +36,25 @@ module.exports = async function (fastify, opts) {
   register.registerMetric(responseTimeHistogram);
   register.registerMetric(activeRequestsGauge);
 
-  // Expose the metrics endpoint
-  fastify.get('/metrics', async (req, reply) => {
-    reply.header('Content-Type', register.contentType);
-    reply.send(await register.metrics());
-  });
-
   // ------ End Prometheus Metrics Definition  ------
 
   fastify.register(require('@fastify/cors'), { origin: '*' });
+  // Pass the shared registry to all routes
+  const options = Object.assign({}, opts, { register });
 
   // This loads all plugins defined in plugins
   // those should be support plugins that are reused
   // through your application
   fastify.register(AutoLoad, {
     dir: path.join(__dirname, 'plugins'),
-    options: Object.assign({}, opts),
+    options: options,
   });
 
   // This loads all plugins defined in routes
   // define your routes in one of these
   fastify.register(AutoLoad, {
     dir: path.join(__dirname, 'routes'),
-    options: Object.assign({}, opts),
+    options: options,
   });
 
   // Load gRPC proto file for MensagemService
