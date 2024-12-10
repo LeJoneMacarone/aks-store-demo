@@ -27,20 +27,8 @@ module.exports = async function (fastify, opts) {
     buckets: [0.1, 0.5, 1, 2.5, 5, 10],
   });
 
-  const activeGrpcRequestsStarted = new client.Counter({
-    name: 'grpc_active_requests_started_total',
-    help: 'Total number of gRPC requests started',
-  });
-  
-  const activeGrpcRequestsEnded = new client.Counter({
-    name: 'grpc_active_requests_ended_total',
-    help: 'Total number of gRPC requests ended',
-  });
-
   register.registerMetric(requestCounter);
   register.registerMetric(responseTimeHistogram);
-  register.registerMetric(activeGrpcRequestsStarted);
-  register.registerMetric(activeGrpcRequestsEnded);
 
   // ------ End Prometheus Metrics Definition  ------
 
@@ -81,9 +69,6 @@ module.exports = async function (fastify, opts) {
     
     // Start timer for response time metric
     const startTime = process.hrtime(); 
-    // Increment the started requests counter
-    activeGrpcRequestsStarted.inc();
-
     const mensagem = call.request;
     console.log('[GET] Received from gRPC:\n', mensagem);
 
@@ -99,7 +84,6 @@ module.exports = async function (fastify, opts) {
       parsedConteudo = JSON.parse(validJson);
     } catch (error) {
       console.error('Failed to parse conteudo:', error);
-      activeGrpcRequestsEnded.inc()
       callback(null,{
         resposta: 'Invalid JSON format in conteudo',
       });
@@ -118,9 +102,6 @@ module.exports = async function (fastify, opts) {
     const [seconds, nanoseconds] = process.hrtime(startTime);
     const durationInSeconds = seconds + nanoseconds / 1e9;
     responseTimeHistogram.observe({ method: 'EnviarMensagem' }, durationInSeconds);
-
-    // Increment the ended requests counter
-    activeGrpcRequestsEnded.inc();
   }
   
   // Create gRPC server
