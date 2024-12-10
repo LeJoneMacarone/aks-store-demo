@@ -36,8 +36,8 @@ spec:
           value: "orders"
         resources:
           requests:
-            cpu: 1m
-            memory: 15Mi
+            cpu: 2m
+            memory: 30Mi
           limits:
             cpu: 5m
             memory: 50Mi
