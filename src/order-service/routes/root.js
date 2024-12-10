@@ -15,11 +15,6 @@ module.exports = async function (fastify, opts) {
     labelNames: ['method'],
   });
 
-  const httpActiveRequestsGauge = new client.Gauge({
-    name: 'http_active_requests',
-    help: 'Number of active HTTP POST requests being handled',
-  });
-
   const httpResponseTimeHistogram = new client.Histogram({
     name: 'http_response_time_seconds',
     help: 'Response time for HTTP POST requests in seconds',
@@ -27,9 +22,20 @@ module.exports = async function (fastify, opts) {
     buckets: [0.1, 0.5, 1, 2.5, 5, 10],
   });
 
+  const activeHttpRequestsStarted = new client.Counter({
+    name: 'grpc_active_requests_started_total',
+    help: 'Total number of gRPC requests started',
+  });
+  
+  const activeHttpRequestsEnded = new client.Counter({
+    name: 'grpc_active_requests_ended_total',
+    help: 'Total number of gRPC requests ended',
+  });
+
   register.registerMetric(httpRequestCounter);
-  register.registerMetric(httpActiveRequestsGauge);
   register.registerMetric(httpResponseTimeHistogram);
+  register.registerMetric(activeHttpRequestsStarted);
+  register.registerMetric(activeHttpRequestsEnded);
 
   // ------ End Prometheus Metrics Definition  ------
 
@@ -45,21 +51,20 @@ module.exports = async function (fastify, opts) {
     
     // Start timer for response time metric
     const startTime = process.hrtime(); 
-    // Increment active requests gauge
-    httpActiveRequestsGauge.inc(); 
+    // Increment the started requests counter
+    activeHttpRequestsStarted.inc();
     // Increment request counter
     httpRequestCounter.inc({ method: 'POST' }); 
     
     fastify.sendMessage(Buffer.from(JSON.stringify(msg)))
     reply.code(201)
-
+    
+    // Increment the ended requests counter
+    activeHttpRequestsEnded.inc();
     // Record response time
     const [seconds, nanoseconds] = process.hrtime(startTime);
     const durationInSeconds = seconds + nanoseconds / 1e9;
     httpResponseTimeHistogram.observe({ method: 'POST' }, durationInSeconds);
-
-    // Decrement active requests gauge
-    httpActiveRequestsGauge.dec(); 
   })
 
   fastify.get('/health', async function (request, reply) {
