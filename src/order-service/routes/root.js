@@ -23,12 +23,12 @@ module.exports = async function (fastify, opts) {
   });
 
   const activeHttpRequestsStarted = new client.Counter({
-    name: 'grpc_active_requests_started_total',
+    name: 'http_active_requests_started_total',
     help: 'Total number of gRPC requests started',
   });
   
   const activeHttpRequestsEnded = new client.Counter({
-    name: 'grpc_active_requests_ended_total',
+    name: 'http_active_requests_ended_total',
     help: 'Total number of gRPC requests ended',
   });
 
